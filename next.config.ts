@@ -1,6 +1,9 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
-import { redirects } from "./redirect";
+import './src/lib/env/client';
+import './src/lib/env/server';
+
+import { redirects } from './redirect';
 
 const ContentSecurityPolicy = `
   object-src 'none';
@@ -12,32 +15,32 @@ const ContentSecurityPolicy = `
 
 const securityHeaders = [
   {
-    key: "X-DNS-Prefetch-Control",
-    value: "on",
+    key: 'X-DNS-Prefetch-Control',
+    value: 'on',
   },
   {
-    key: "Strict-Transport-Security",
-    value: "max-age=63072000; includeSubDomains; preload",
+    key: 'Strict-Transport-Security',
+    value: 'max-age=63072000; includeSubDomains; preload',
   },
   {
-    key: "X-XSS-Protection",
-    value: "1; mode=block",
+    key: 'X-XSS-Protection',
+    value: '1; mode=block',
   },
   {
-    key: "X-Content-Type-Options",
-    value: "nosniff",
+    key: 'X-Content-Type-Options',
+    value: 'nosniff',
   },
   {
-    key: "Referrer-Policy",
-    value: "no-referrer-when-downgrade",
+    key: 'Referrer-Policy',
+    value: 'no-referrer-when-downgrade',
   },
   {
-    key: "Permissions-Policy",
+    key: 'Permissions-Policy',
     value: `accelerometer=(), camera=(), gyroscope=(), microphone=(), usb=()`,
   },
   {
-    key: "Content-Security-Policy",
-    value: ContentSecurityPolicy.replace(/\n/g, ""),
+    key: 'Content-Security-Policy',
+    value: ContentSecurityPolicy.replace(/\n/g, ''),
   },
 ];
 
@@ -46,7 +49,7 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
-        source: "/(.*)",
+        source: '/(.*)',
         headers: securityHeaders,
       },
     ];
